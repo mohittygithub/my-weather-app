@@ -1,14 +1,11 @@
 import "./App.css";
-import InputBox from "./components/input-box/InputBox";
-import WeatherCard from "./components/weather-card/WeatherCard";
-import WeatherEngine from "./components/weather-engine/WeatherEngine";
+
+import WeatherPage from "./components/weather-page/WeatherPage";
 
 function App() {
   return (
     <div>
-      <InputBox />
-      <WeatherEngine />
-      <WeatherCard />
+      <WeatherPage />
     </div>
   );
 }
