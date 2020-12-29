@@ -1,7 +1,10 @@
 .card {
   width: 18rem;
   text-align: center;
-  background-color: green;
+}
+
+.card-body {
+  text-transform: capitalize;
 }
 
 .hot {

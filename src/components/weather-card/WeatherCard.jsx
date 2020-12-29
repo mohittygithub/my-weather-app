@@ -1,37 +1,34 @@
-import React from "react";
-import { connect } from "react-redux";
-import "./WeatherCard.css";
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import './WeatherCard.css'
 
 const WeatherCard = (props) => {
+  let data
+  props.details.map((weatherData) => (data = weatherData.weatherData))
+
   return (
     <>
-      {props.details.map((detail) => (
-        <div
-          className={`{detail.weatherData.current.temp_c} > 25
-           ? cold : hot} card`}
-          key={detail.weatherData.location.name}
-        >
-          <img
-            className="card-img-top"
-            src={detail.weatherData.current.condition.icon}
-            alt="current weather icon"
-          />
-          <div className="card-body">
-            <h5 className="card-heading">
-              {detail.weatherData.location.name} -
-              {detail.weatherData.location.region}
-            </h5>
-            <p>{detail.weatherData.location.country}</p>
-            <p className="card-text">
-              Temp : {detail.weatherData.current.temp_c}
+      {data ? (
+        <div className={`${data.current.temp_c > 23 ? 'hot' : 'cold'} card`}>
+          <div className='card-header'>
+            <h2>{data.location.name.toUpperCase()}</h2>
+            <p>
+              {data.location.region.toUpperCase()} -{' '}
+              {data.location.country.substring(0, 2).toUpperCase()}
             </p>
           </div>
+          <div className='card-body'>
+            <img src={data.current.condition.icon} alt='weather-icon' />
+            <p>{data.current.condition.text}</p>
+            <p>{!data.current.condition.is_day ? 'Day' : 'Night'}</p>
+            <p>Temp - {data.current.temp_c}&#x2103;</p>
+          </div>
         </div>
-      ))}
+      ) : null}
     </>
-  );
-};
+  )
+}
 const mapStateToProps = (state) => ({
   details: state.weatherReducer.weatherData,
-});
-export default connect(mapStateToProps)(WeatherCard);
+})
+export default connect(mapStateToProps)(WeatherCard)
